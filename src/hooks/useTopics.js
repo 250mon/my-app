@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useTopics = () => {
+function useTopics() {
   const [nextId, setNextId] = useState(1);
   const [topics, setTopics] = useState([]);
 
@@ -32,4 +32,6 @@ export const useTopics = () => {
     updateTopic,
     deleteTopic,
   };
-};
+}
+
+export default useTopics;

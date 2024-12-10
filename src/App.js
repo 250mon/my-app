@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { TopicItem } from "./components/TopicItem";
-import { TopicForm } from "./components/TopicForm";
-import { useTopics } from "./components/useTopics";
+import  TopicItem  from "./components/TopicItem";
+import  TopicForm  from "./components/TopicForm";
+import  useTopics  from "./hooks/useTopics";
 
 function App() {
   const { currentTopic, setCurrentTopic } = useState(null);

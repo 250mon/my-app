@@ -1,35 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export const TopicForm = ({ topic, onAdd, onUpdate }) => {
+function TopicForm({ topic, onAdd, onUpdate }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
+  useEffect(() => {
+    if (topic) {
+      setTitle(topic.title);
+      setBody(topic.body);
+    } else {
+      setTitle("");
+      setBody("");
+    }
+  }, [topic]);
+
   const handleSubmit = (e) => {
-    e.preventDetaulf();
-    if (!topic && title.trim() && body.trim()) {
-      onAdd({ title: title, body: body });
-    } else if (topic && title.trim() && body.trim()) {
+    e.preventDefault();
+    if (topic) {
       onUpdate({ ...topic, title, body });
+    } else {
+      onAdd({ title, body });
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="title"
-        placeholder="title"
-        value={topic.title || ""}
-        onChange={(e) => setTitle(e.target.value)}
-      ></input>
-      <input
-        type="text"
-        name="body"
-        placeholder="body"
-        value={topic.body || ""}
-        onChange={(e) => setBody(e.target.value)}
-      ></input>
-      <button type="submit">Add</button>
+      <div>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Title"
+        />
+      </div>
+      <div>
+        <textarea
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+          placeholder="body"
+        />
+      </div>
+      <div>
+        <button type="submit">{topic ? "Update" : "Add"}</button>
+      </div>
     </form>
   );
-};
+}
+
+export default TopicForm;
